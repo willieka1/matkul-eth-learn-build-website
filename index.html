@@ -8,12 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* ============================================
-           WEBSITEKU — Tugas Ethical Hacking
-           Topik: Agent AI | Kelompok 3
-           Deployed via: Cloudflare Pages
-           ============================================ */
-
         :root {
             --blue-900: #0f172a;
             --blue-800: #1e293b;
@@ -32,6 +26,7 @@
             --gray-200: #e2e8f0;
             --gray-400: #94a3b8;
             --gray-600: #475569;
+            --gray-700: #334155;
             --gray-800: #1e293b;
             --font-display: 'Sora', sans-serif;
             --font-body: 'Space Grotesk', sans-serif;
@@ -41,1566 +36,1164 @@
             --shadow-lg: 0 8px 40px rgba(15,23,42,0.16);
         }
 
-        *, *::before, *::after {
-            margin: 0; padding: 0; box-sizing: border-box;
-        }
-
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        body { font-family: var(--font-body); background: var(--gray-50); color: var(--gray-800); overflow-x: hidden; }
 
-        body {
-            font-family: var(--font-body);
-            background: var(--gray-50);
-            color: var(--gray-800);
-            overflow-x: hidden;
-        }
-
-        /* ======= SCROLL PROGRESS BAR ======= */
+        /* SCROLL PROGRESS */
         #progress-bar {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
+            position: fixed; top: 0; left: 0; height: 3px;
             background: linear-gradient(90deg, var(--blue-500), var(--accent));
-            width: 0%;
-            z-index: 9999;
-            transition: width 0.1s linear;
+            width: 0%; z-index: 9999; transition: width 0.1s linear;
         }
 
-        /* ======= NAVBAR ======= */
+        /* NAVBAR */
         nav {
-            position: sticky;
-            top: 0;
+            position: sticky; top: 0;
             background: rgba(15,23,42,0.96);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 0 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 62px;
-            z-index: 1000;
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 0 40px; display: flex; justify-content: space-between;
+            align-items: center; height: 62px; z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.07);
         }
-
         .logo {
-            font-family: var(--font-display);
-            color: var(--white);
-            font-size: 1.2em;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-family: var(--font-display); color: var(--white);
+            font-size: 1.2em; font-weight: 800; letter-spacing: -0.5px;
+            display: flex; align-items: center; gap: 8px;
         }
-
         .logo .dot {
-            width: 8px; height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 2s infinite;
+            width: 8px; height: 8px; background: var(--accent);
+            border-radius: 50%; display: inline-block; animation: pulse 2s infinite;
         }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 6px;
-        }
-
+        @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+        nav ul { list-style: none; display: flex; gap: 6px; }
         nav ul li a {
-            color: var(--gray-400);
-            text-decoration: none;
-            font-size: 0.85em;
-            font-weight: 500;
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: all 0.2s;
-            letter-spacing: 0.3px;
+            color: var(--gray-400); text-decoration: none; font-size: 0.85em;
+            font-weight: 500; padding: 6px 14px; border-radius: 20px;
+            transition: all 0.2s; letter-spacing: 0.3px;
         }
+        nav ul li a:hover { color: var(--white); background: rgba(255,255,255,0.08); }
 
-        nav ul li a:hover {
-            color: var(--white);
-            background: rgba(255,255,255,0.08);
-        }
-
-        /* ======= HERO ======= */
+        /* HERO */
         .hero {
-            background: var(--blue-900);
-            position: relative;
-            overflow: hidden;
-            padding: 90px 40px 80px;
-            text-align: center;
+            background: var(--blue-900); position: relative;
+            overflow: hidden; padding: 90px 40px 80px; text-align: center;
         }
-
         .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
+            content: ''; position: absolute; inset: 0;
             background:
                 radial-gradient(ellipse 70% 60% at 50% -10%, rgba(59,130,246,0.35) 0%, transparent 70%),
                 radial-gradient(ellipse 40% 40% at 80% 80%, rgba(245,158,11,0.12) 0%, transparent 60%);
             pointer-events: none;
         }
-
         .hero-grid {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background-image:
                 linear-gradient(rgba(59,130,246,0.06) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(59,130,246,0.06) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
+            background-size: 40px 40px; pointer-events: none;
         }
-
         .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(59,130,246,0.15);
-            border: 1px solid rgba(59,130,246,0.3);
-            color: var(--blue-400);
-            font-size: 0.78em;
-            font-weight: 600;
-            padding: 6px 16px;
-            border-radius: 20px;
-            margin-bottom: 24px;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3);
+            color: var(--blue-400); font-size: 0.78em; font-weight: 600;
+            padding: 6px 16px; border-radius: 20px; margin-bottom: 24px;
+            letter-spacing: 0.8px; text-transform: uppercase;
             animation: fadeDown 0.6s ease both;
         }
-
         .hero h1 {
-            font-family: var(--font-display);
-            font-size: clamp(2.2em, 5vw, 3.6em);
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1.1;
-            letter-spacing: -1.5px;
-            margin-bottom: 20px;
+            font-family: var(--font-display); font-size: clamp(2.2em,5vw,3.6em);
+            font-weight: 800; color: var(--white); line-height: 1.1;
+            letter-spacing: -1.5px; margin-bottom: 20px;
             animation: fadeDown 0.6s ease 0.1s both;
         }
-
         .hero h1 .highlight {
             background: linear-gradient(135deg, #60a5fa, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-
         .hero p {
-            font-size: 1.05em;
-            color: var(--gray-400);
-            max-width: 580px;
-            margin: 0 auto 36px;
-            line-height: 1.7;
+            font-size: 1.05em; color: var(--gray-400); max-width: 580px;
+            margin: 0 auto 36px; line-height: 1.7;
             animation: fadeDown 0.6s ease 0.2s both;
         }
-
         .hero-actions {
-            display: flex;
-            gap: 14px;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
             animation: fadeDown 0.6s ease 0.3s both;
         }
-
         .btn-primary {
-            background: var(--blue-500);
-            color: white;
-            padding: 13px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95em;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            background: var(--blue-500); color: white; padding: 13px 28px;
+            border-radius: 8px; text-decoration: none; font-weight: 600;
+            font-size: 0.95em; transition: all 0.2s; display: inline-flex;
+            align-items: center; gap: 8px;
         }
-
-        .btn-primary:hover {
-            background: var(--blue-700);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(59,130,246,0.4);
-        }
-
+        .btn-primary:hover { background: var(--blue-700); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(59,130,246,0.4); }
         .btn-outline {
-            background: transparent;
-            color: var(--gray-400);
-            padding: 13px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95em;
-            border: 1px solid rgba(255,255,255,0.12);
-            transition: all 0.2s;
+            background: transparent; color: var(--gray-400); padding: 13px 28px;
+            border-radius: 8px; text-decoration: none; font-weight: 600;
+            font-size: 0.95em; border: 1px solid rgba(255,255,255,0.12); transition: all 0.2s;
         }
+        .btn-outline:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+        @keyframes fadeDown { from{opacity:0;transform:translateY(-16px)} to{opacity:1;transform:translateY(0)} }
 
-        .btn-outline:hover {
-            color: var(--white);
-            border-color: rgba(255,255,255,0.3);
-        }
-
-        @keyframes fadeDown {
-            from { opacity: 0; transform: translateY(-16px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dot-green {
-            width: 7px; height: 7px;
-            background: var(--green);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        /* ======= SECRET PANEL ======= */
+        /* SECRET PANEL OVERLAY */
         #secret-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(10,14,26,0.85);
-            backdrop-filter: blur(8px);
-            z-index: 9000;
-            align-items: center;
-            justify-content: center;
+            display: none; position: fixed; inset: 0;
+            background: rgba(10,14,26,0.88); backdrop-filter: blur(10px);
+            z-index: 9000; align-items: center; justify-content: center;
         }
-
-        #secret-overlay.open {
-            display: flex;
-        }
+        #secret-overlay.open { display: flex; }
 
         #secret-panel {
-            background: #0f1629;
-            border: 1px solid rgba(59,130,246,0.25);
-            border-radius: 18px;
-            padding: 36px 40px;
-            width: 100%;
-            max-width: 560px;
+            background: #0b1120;
+            border: 1px solid rgba(59,130,246,0.2);
+            border-radius: 20px; padding: 0;
+            width: 100%; max-width: 580px;
             position: relative;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(59,130,246,0.1);
-            animation: panelIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(59,130,246,0.08);
+            animation: panelIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+            overflow: hidden;
+            max-height: 90vh;
+            display: flex; flex-direction: column;
         }
+        @keyframes panelIn { from{opacity:0;transform:scale(0.88) translateY(24px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
-        @keyframes panelIn {
-            from { opacity: 0; transform: scale(0.88) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        /* Panel header */
+        .panel-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 22px 28px 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.02);
+            flex-shrink: 0;
         }
-
-        #secret-panel .panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 28px;
+        .panel-title {
+            font-family: var(--font-display); font-size: 1.05em;
+            font-weight: 800; color: var(--white);
+            display: flex; align-items: center; gap: 10px;
         }
-
-        #secret-panel .panel-title {
-            font-family: var(--font-display);
-            font-size: 1.1em;
-            font-weight: 800;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .panel-title .tag {
+            font-family: var(--font-mono); font-size: 0.58em;
+            background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3);
+            color: #f87171; padding: 2px 10px; border-radius: 20px; letter-spacing: 1px;
         }
-
-        #secret-panel .panel-title .tag {
-            font-family: var(--font-mono);
-            font-size: 0.6em;
-            background: rgba(59,130,246,0.15);
-            border: 1px solid rgba(59,130,246,0.3);
-            color: var(--blue-400);
-            padding: 2px 10px;
-            border-radius: 20px;
-            letter-spacing: 1px;
+        .close-btn {
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray-400); width: 32px; height: 32px; border-radius: 50%;
+            cursor: pointer; font-size: 1em; display: flex; align-items: center;
+            justify-content: center; transition: all 0.2s; flex-shrink: 0;
         }
+        .close-btn:hover { background: rgba(239,68,68,0.15); color: #f87171; border-color: rgba(239,68,68,0.3); }
 
-        #secret-panel .close-btn {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--gray-400);
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+        /* Passcode gate */
+        #passcode-gate {
+            padding: 36px 32px 32px; text-align: center;
         }
+        .gate-icon { font-size: 2.8em; margin-bottom: 16px; display: block; }
+        #passcode-gate h3 {
+            font-family: var(--font-display); color: var(--white);
+            font-size: 1.05em; font-weight: 700; margin-bottom: 8px;
+        }
+        #passcode-gate p { color: var(--gray-400); font-size: 0.88em; margin-bottom: 28px; line-height: 1.6; }
+        #passcode-input {
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px; padding: 14px 20px;
+            font-family: var(--font-mono); font-size: 1.5em; letter-spacing: 8px;
+            color: var(--white); text-align: center; width: 100%;
+            outline: none; transition: all 0.2s;
+        }
+        #passcode-input:focus { border-color: var(--blue-500); box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+        #passcode-input.shake { animation: shake 0.4s ease; border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.15) !important; }
+        @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+        #passcode-hint { margin-top: 10px; font-size: 0.82em; color: #f87171; min-height: 20px; font-family: var(--font-mono); }
+        #passcode-submit {
+            margin-top: 18px; background: var(--blue-500); color: white;
+            border: none; padding: 13px 32px; border-radius: 10px; cursor: pointer;
+            font-family: var(--font-body); font-size: 0.9em; font-weight: 700;
+            transition: all 0.2s; width: 100%; letter-spacing: 0.3px;
+        }
+        #passcode-submit:hover { background: var(--blue-700); transform: translateY(-1px); }
 
-        #secret-panel .close-btn:hover {
-            background: rgba(255,255,255,0.12);
-            color: var(--white);
+        /* Panel content */
+        #panel-content { display: none; overflow-y: auto; flex: 1; }
+        #panel-content::-webkit-scrollbar { width: 4px; }
+        #panel-content::-webkit-scrollbar-track { background: transparent; }
+        #panel-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+
+        .info-section-title {
+            font-family: var(--font-mono); font-size: 0.65em; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; color: var(--blue-400);
+            padding: 16px 28px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
         .info-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            padding: 14px 16px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 10px;
-            margin-bottom: 10px;
-            transition: all 0.2s;
-        }
-
-        .info-row:hover {
-            background: rgba(59,130,246,0.06);
-            border-color: rgba(59,130,246,0.2);
-        }
-
-        .info-row .info-icon {
-            font-size: 1.2em;
-            min-width: 28px;
-            text-align: center;
-        }
-
-        .info-row .info-body { flex: 1; }
-
-        .info-row .info-label {
-            font-size: 0.72em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--gray-400);
-            margin-bottom: 3px;
-        }
-
-        .info-row .info-val {
-            font-family: var(--font-mono);
-            font-size: 0.9em;
-            font-weight: 700;
-            color: var(--white);
-        }
-
-        .info-row .info-val.loading {
-            color: var(--gray-400);
-            font-weight: 400;
-            font-style: italic;
-        }
-
-        .info-row .info-sub {
-            font-size: 0.75em;
-            color: var(--gray-400);
-            margin-top: 2px;
-        }
-
-        .panel-footer {
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            font-size: 0.75em;
-            color: rgba(148,163,184,0.45);
-            font-family: var(--font-mono);
-            text-align: center;
-        }
-
-        /* passcode gate */
-        #passcode-gate {
-            text-align: center;
-        }
-
-        #passcode-gate p {
-            color: var(--gray-400);
-            font-size: 0.9em;
-            margin-bottom: 20px;
-        }
-
-        #passcode-input {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 10px;
-            padding: 12px 18px;
-            font-family: var(--font-mono);
-            font-size: 1.4em;
-            letter-spacing: 6px;
-            color: var(--white);
-            text-align: center;
-            width: 100%;
-            outline: none;
-            transition: all 0.2s;
-        }
-
-        #passcode-input:focus {
-            border-color: var(--blue-500);
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
-        }
-
-        #passcode-input.shake {
-            animation: shake 0.4s ease;
-            border-color: #ef4444;
-        }
-
-        @keyframes shake {
-            0%,100% { transform: translateX(0); }
-            20% { transform: translateX(-8px); }
-            40% { transform: translateX(8px); }
-            60% { transform: translateX(-6px); }
-            80% { transform: translateX(6px); }
-        }
-
-        #passcode-hint {
-            margin-top: 12px;
-            font-size: 0.8em;
-            color: #ef4444;
-            min-height: 18px;
-        }
-
-        #passcode-submit {
-            margin-top: 16px;
-            background: var(--blue-500);
-            color: white;
-            border: none;
-            padding: 11px 32px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: var(--font-body);
-            font-size: 0.9em;
-            font-weight: 700;
-            transition: all 0.2s;
-            width: 100%;
-        }
-
-        #passcode-submit:hover { background: var(--blue-700); }
-
-        #panel-content { display: none; }
-
-        /* ======= SECTION ======= */
-        .section {
-            padding: 72px 40px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .section-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.72em;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--blue-500);
-            margin-bottom: 14px;
-        }
-
-        .section-label::before {
-            content: '';
-            width: 20px; height: 2px;
-            background: var(--blue-500);
-            border-radius: 2px;
-        }
-
-        .section h2 {
-            font-family: var(--font-display);
-            font-size: clamp(1.6em, 3vw, 2.2em);
-            font-weight: 800;
-            color: var(--gray-800);
-            letter-spacing: -0.8px;
-            margin-bottom: 12px;
-        }
-
-        .section > p {
-            color: var(--gray-600);
-            line-height: 1.8;
-            max-width: 680px;
-            font-size: 1em;
-            margin-bottom: 36px;
-        }
-
-        .divider {
-            border: none;
-            border-top: 1px solid var(--gray-200);
-            margin: 0;
-        }
-
-        /* ======= PENGERTIAN ======= */
-        .def-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 24px;
-        }
-
-        .def-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 28px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .def-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--blue-500), var(--blue-400));
-        }
-
-        .def-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--blue-100);
-        }
-
-        .def-card h3 {
-            font-weight: 700;
-            color: var(--blue-700);
-            font-size: 0.88em;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .def-card p {
-            color: var(--gray-600);
-            font-size: 0.94em;
-            line-height: 1.75;
-        }
-
-        .note-box {
-            background: var(--accent-soft);
-            border: 1px solid #fde68a;
-            border-left: 4px solid var(--accent);
-            border-radius: 0 var(--radius) var(--radius) 0;
-            padding: 16px 20px;
-            font-size: 0.9em;
-            color: #78350f;
-            line-height: 1.65;
-        }
-
-        .note-box strong { color: #92400e; }
-
-        /* ======= JENIS AGENT ======= */
-        .card-row {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 16px;
-        }
-
-        .card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 24px 18px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-            cursor: default;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--blue-500), var(--blue-400));
-            transform: scaleX(0);
-            transition: transform 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--blue-100);
-        }
-
-        .card:hover::after { transform: scaleX(1); }
-
-        .card .icon {
-            font-size: 2em;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .card h3 {
-            font-size: 0.88em;
-            font-weight: 700;
-            color: var(--blue-700);
-            margin-bottom: 8px;
-        }
-
-        .card p {
-            font-size: 0.8em;
-            color: var(--gray-600);
-            line-height: 1.55;
-        }
-
-        /* ======= CARA KERJA ======= */
-        .steps {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            position: relative;
-        }
-
-        .steps::before {
-            content: '';
-            position: absolute;
-            left: 18px;
-            top: 36px;
-            bottom: 36px;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--blue-500), var(--blue-400));
-            opacity: 0.25;
-        }
-
-        .step {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 20px 24px;
-            box-shadow: var(--shadow);
-            transition: all 0.3s;
-        }
-
-        .step:hover {
-            border-color: var(--blue-100);
-            transform: translateX(4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .step .num {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, var(--blue-500), var(--blue-700));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 0.85em;
-            flex-shrink: 0;
-            font-family: var(--font-mono);
-            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
-        }
-
-        .step h4 {
-            font-weight: 700;
-            color: var(--gray-800);
-            font-size: 0.95em;
-            margin-bottom: 4px;
-        }
-
-        .step p {
-            font-size: 0.88em;
-            color: var(--gray-600);
-            line-height: 1.6;
-        }
-
-        /* ======= CONTOH ======= */
-        .contoh-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .contoh-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 22px;
-            box-shadow: var(--shadow);
-            display: flex;
-            gap: 16px;
-            align-items: flex-start;
-            transition: all 0.3s;
-        }
-
-        .contoh-card:hover {
-            border-color: var(--blue-100);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .contoh-card .badge {
-            background: var(--blue-100);
-            font-size: 1.4em;
-            padding: 10px;
-            border-radius: 10px;
-            flex-shrink: 0;
-            transition: transform 0.2s;
-        }
-
-        .contoh-card:hover .badge { transform: scale(1.1) rotate(-5deg); }
-
-        .contoh-card h4 {
-            font-weight: 700;
-            color: var(--gray-800);
-            font-size: 0.92em;
-            margin-bottom: 5px;
-        }
-
-        .contoh-card p {
-            font-size: 0.83em;
-            color: var(--gray-600);
-            line-height: 1.55;
-        }
-
-        /* ======= SECURITY SECTION ======= */
-        .security-section {
-            background: var(--blue-900);
-            padding: 72px 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .security-section::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse 60% 60% at 90% 50%, rgba(59,130,246,0.15) 0%, transparent 70%);
-        }
-
-        .security-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .security-inner .section-label {
-            color: var(--blue-400);
-        }
-
-        .security-inner .section-label::before {
-            background: var(--blue-400);
-        }
-
-        .security-inner h2 {
-            color: var(--white);
-        }
-
-        .security-inner > p {
-            color: var(--gray-400);
-        }
-
-        .headers-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .header-card {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: var(--radius);
-            padding: 20px 22px;
-            transition: all 0.3s;
-        }
-
-        .header-card:hover {
-            background: rgba(255,255,255,0.07);
-            border-color: rgba(59,130,246,0.4);
-        }
-
-        .header-card .hname {
-            font-family: var(--font-mono);
-            font-size: 0.8em;
-            color: var(--blue-400);
-            font-weight: 700;
-            margin-bottom: 4px;
-            letter-spacing: 0.3px;
-        }
-
-        .header-card .hval {
-            font-family: var(--font-mono);
-            font-size: 0.75em;
-            color: var(--accent);
-            margin-bottom: 8px;
-        }
-
-        .header-card .hdesc {
-            font-size: 0.82em;
-            color: var(--gray-400);
-            line-height: 1.55;
-        }
-
-        .header-note {
-            font-size: 0.75em;
-            color: rgba(148,163,184,0.6);
-            font-style: italic;
-            margin-top: 8px;
-            font-family: var(--font-mono);
-        }
-
-        /* ======= QUIZ ======= */
-        .quiz-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .quiz-card {
-            background: var(--white);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 28px;
-            box-shadow: var(--shadow);
-        }
-
-        .quiz-card .soal {
-            font-weight: 700;
-            color: var(--gray-800);
-            font-size: 0.98em;
-            margin-bottom: 18px;
+            display: flex; align-items: flex-start; gap: 14px;
+            padding: 12px 28px; transition: all 0.15s;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .info-row:hover { background: rgba(59,130,246,0.05); }
+        .info-icon { font-size: 1.1em; min-width: 26px; text-align: center; margin-top: 2px; }
+        .info-body { flex: 1; min-width: 0; }
+        .info-label {
+            font-size: 0.68em; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--gray-400); margin-bottom: 2px;
+        }
+        .info-val {
+            font-family: var(--font-mono); font-size: 0.82em; font-weight: 700;
+            color: var(--white); word-break: break-all; white-space: pre-wrap;
             line-height: 1.5;
         }
+        .info-val.loading { color: var(--gray-400); font-weight: 400; font-style: italic; }
+        .info-sub { font-size: 0.72em; color: var(--gray-400); margin-top: 2px; font-family: var(--font-mono); }
+        .info-val.ok  { color: #34d399; }
+        .info-val.bad { color: #f87171; }
+        .info-val.warn{ color: var(--accent); }
 
-        .quiz-card .soal .qnum {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 26px; height: 26px;
-            background: var(--blue-500);
-            color: white;
-            border-radius: 50%;
-            font-size: 0.82em;
-            margin-right: 10px;
-            font-family: var(--font-mono);
+        .panel-footer {
+            padding: 14px 28px; border-top: 1px solid rgba(255,255,255,0.06);
+            font-size: 0.7em; color: rgba(148,163,184,0.4);
+            font-family: var(--font-mono); text-align: center;
+            background: rgba(255,255,255,0.01); flex-shrink: 0;
         }
 
-        .pilihan {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 18px;
+        /* API status badge */
+        .api-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25);
+            color: #34d399; font-family: var(--font-mono); font-size: 0.65em;
+            padding: 2px 10px; border-radius: 20px; margin-left: 8px;
         }
+        .api-badge.fail { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.25); color: #f87171; }
 
-        .pilihan label {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            background: var(--gray-100);
-            padding: 11px 16px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-            color: var(--gray-700);
+        /* SECTIONS */
+        .section { padding: 72px 40px; max-width: 1100px; margin: 0 auto; }
+        .section-label {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.72em; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--blue-500); margin-bottom: 14px;
         }
-
-        .pilihan label:hover {
-            border-color: var(--blue-400);
-            background: var(--blue-100);
+        .section-label::before { content: ''; width: 20px; height: 2px; background: var(--blue-500); border-radius: 2px; }
+        .section h2 {
+            font-family: var(--font-display); font-size: clamp(1.6em,3vw,2.2em);
+            font-weight: 800; color: var(--gray-800); letter-spacing: -0.8px; margin-bottom: 12px;
         }
+        .section > p { color: var(--gray-600); line-height: 1.8; max-width: 680px; font-size: 1em; margin-bottom: 36px; }
+        .divider { border: none; border-top: 1px solid var(--gray-200); margin: 0; }
 
-        .pilihan label input { accent-color: var(--blue-500); }
-
-        .quiz-btn {
-            background: var(--blue-500);
-            color: white;
-            border: none;
-            padding: 10px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9em;
-            font-weight: 600;
-            font-family: var(--font-body);
-            transition: all 0.2s;
-            letter-spacing: 0.3px;
+        /* DEF GRID */
+        .def-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+        .def-card {
+            background: var(--white); border: 1px solid var(--gray-200);
+            border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+            transition: all 0.3s; position: relative; overflow: hidden;
         }
+        .def-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--blue-500), var(--blue-400)); }
+        .def-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--blue-100); }
+        .def-card h3 { font-weight:700; color:var(--blue-700); font-size:0.88em; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+        .def-card p { color:var(--gray-600); font-size:0.94em; line-height:1.75; }
+        .note-box { background:var(--accent-soft); border:1px solid #fde68a; border-left:4px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding:16px 20px; font-size:0.9em; color:#78350f; line-height:1.65; }
+        .note-box strong { color:#92400e; }
 
-        .quiz-btn:hover {
-            background: var(--blue-700);
-            transform: translateY(-1px);
+        /* CARD ROW */
+        .card-row { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; }
+        .card {
+            background: var(--white); border: 1px solid var(--gray-200);
+            border-radius: var(--radius); padding: 24px 18px; text-align: center;
+            box-shadow: var(--shadow); transition: all 0.3s; cursor: default;
+            position: relative; overflow: hidden;
         }
+        .card::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--blue-500),var(--blue-400)); transform:scaleX(0); transition:transform 0.3s; }
+        .card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:var(--blue-100); }
+        .card:hover::after { transform:scaleX(1); }
+        .card .icon { font-size:2em; margin-bottom:12px; display:block; }
+        .card h3 { font-size:0.88em; font-weight:700; color:var(--blue-700); margin-bottom:8px; }
+        .card p { font-size:0.8em; color:var(--gray-600); line-height:1.55; }
 
-        .hasil {
-            margin-top: 12px;
-            font-weight: 600;
-            font-size: 0.9em;
-            padding: 10px 14px;
-            border-radius: 8px;
-            display: none;
-        }
+        /* STEPS */
+        .steps { display:flex; flex-direction:column; gap:14px; position:relative; }
+        .steps::before { content:''; position:absolute; left:18px; top:36px; bottom:36px; width:2px; background:linear-gradient(to bottom,var(--blue-500),var(--blue-400)); opacity:0.25; }
+        .step { display:flex; gap:20px; align-items:flex-start; background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius); padding:20px 24px; box-shadow:var(--shadow); transition:all 0.3s; }
+        .step:hover { border-color:var(--blue-100); transform:translateX(4px); box-shadow:var(--shadow-lg); }
+        .step .num { width:36px; height:36px; background:linear-gradient(135deg,var(--blue-500),var(--blue-700)); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85em; flex-shrink:0; font-family:var(--font-mono); box-shadow:0 4px 12px rgba(59,130,246,0.3); }
+        .step h4 { font-weight:700; color:var(--gray-800); font-size:0.95em; margin-bottom:4px; }
+        .step p { font-size:0.88em; color:var(--gray-600); line-height:1.6; }
 
-        .hasil.benar {
-            background: var(--green-soft);
-            color: #065f46;
-            border: 1px solid #6ee7b7;
-            display: block;
-        }
+        /* CONTOH */
+        .contoh-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+        .contoh-card { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow); display:flex; gap:16px; align-items:flex-start; transition:all 0.3s; }
+        .contoh-card:hover { border-color:var(--blue-100); transform:translateY(-3px); box-shadow:var(--shadow-lg); }
+        .contoh-card .badge { background:var(--blue-100); font-size:1.4em; padding:10px; border-radius:10px; flex-shrink:0; transition:transform 0.2s; }
+        .contoh-card:hover .badge { transform:scale(1.1) rotate(-5deg); }
+        .contoh-card h4 { font-weight:700; color:var(--gray-800); font-size:0.92em; margin-bottom:5px; }
+        .contoh-card p { font-size:0.83em; color:var(--gray-600); line-height:1.55; }
 
-        .hasil.salah {
-            background: #fef2f2;
-            color: #991b1b;
-            border: 1px solid #fca5a5;
-            display: block;
-        }
+        /* SECURITY */
+        .security-section { background:var(--blue-900); padding:72px 40px; position:relative; overflow:hidden; }
+        .security-section::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 60% at 90% 50%, rgba(59,130,246,0.15) 0%, transparent 70%); }
+        .security-inner { max-width:1100px; margin:0 auto; position:relative; }
+        .security-inner .section-label { color:var(--blue-400); }
+        .security-inner .section-label::before { background:var(--blue-400); }
+        .security-inner h2 { color:var(--white); }
+        .security-inner > p { color:var(--gray-400); }
+        .headers-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+        .header-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius); padding:20px 22px; transition:all 0.3s; }
+        .header-card:hover { background:rgba(255,255,255,0.07); border-color:rgba(59,130,246,0.4); }
+        .header-card .hname { font-family:var(--font-mono); font-size:0.8em; color:var(--blue-400); font-weight:700; margin-bottom:4px; }
+        .header-card .hval { font-family:var(--font-mono); font-size:0.75em; color:var(--accent); margin-bottom:8px; }
+        .header-card .hdesc { font-size:0.82em; color:var(--gray-400); line-height:1.55; }
 
-        .hasil.warn {
-            background: var(--accent-soft);
-            color: #78350f;
-            display: block;
-        }
+        /* QUIZ */
+        .quiz-wrapper { display:flex; flex-direction:column; gap:20px; }
+        .quiz-card { background:var(--white); border:1px solid var(--gray-200); border-radius:var(--radius); padding:28px; box-shadow:var(--shadow); }
+        .quiz-card .soal { font-weight:700; color:var(--gray-800); font-size:0.98em; margin-bottom:18px; line-height:1.5; }
+        .quiz-card .soal .qnum { display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; background:var(--blue-500); color:white; border-radius:50%; font-size:0.82em; margin-right:10px; font-family:var(--font-mono); }
+        .pilihan { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+        .pilihan label { display:flex; align-items:center; gap:12px; cursor:pointer; background:var(--gray-100); padding:11px 16px; border-radius:8px; font-size:0.9em; border:2px solid transparent; transition:all 0.2s; color:var(--gray-700); }
+        .pilihan label:hover { border-color:var(--blue-400); background:var(--blue-100); }
+        .pilihan label input { accent-color:var(--blue-500); }
+        .quiz-btn { background:var(--blue-500); color:white; border:none; padding:10px 24px; border-radius:8px; cursor:pointer; font-size:0.9em; font-weight:600; font-family:var(--font-body); transition:all 0.2s; letter-spacing:0.3px; }
+        .quiz-btn:hover { background:var(--blue-700); transform:translateY(-1px); }
+        .hasil { margin-top:12px; font-weight:600; font-size:0.9em; padding:10px 14px; border-radius:8px; display:none; }
+        .hasil.benar { background:var(--green-soft); color:#065f46; border:1px solid #6ee7b7; display:block; }
+        .hasil.salah { background:#fef2f2; color:#991b1b; border:1px solid #fca5a5; display:block; }
+        .hasil.warn { background:var(--accent-soft); color:#78350f; display:block; }
 
-        /* ======= KELOMPOK ======= */
-        .kelompok-section {
-            background: var(--white);
-            border-top: 1px solid var(--gray-200);
-            padding: 72px 40px;
-        }
+        /* KELOMPOK */
+        .kelompok-section { background:var(--white); border-top:1px solid var(--gray-200); padding:72px 40px; }
+        .kelompok-inner { max-width:1100px; margin:0 auto; }
+        .anggota-grid { display:flex; flex-wrap:wrap; gap:16px; margin-top:32px; }
+        .anggota-card { background:var(--gray-50); border:1px solid var(--gray-200); border-radius:var(--radius); padding:22px 28px; min-width:180px; text-align:center; transition:all 0.3s; }
+        .anggota-card:hover { border-color:var(--blue-400); transform:translateY(-3px); box-shadow:var(--shadow); }
+        .anggota-card .avatar { font-size:2.2em; margin-bottom:8px; }
+        .anggota-card .nama { font-weight:700; font-size:0.92em; color:var(--gray-800); margin-bottom:4px; }
+        .anggota-card .nim { font-size:0.78em; color:var(--gray-400); font-family:var(--font-mono); }
 
-        .kelompok-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
+        /* FOOTER */
+        footer { background:var(--blue-900); color:var(--gray-400); text-align:center; padding:30px 20px; font-size:0.82em; line-height:1.8; }
+        footer strong { color:var(--gray-200); }
+        footer .footer-row { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; margin-bottom:10px; }
+        footer .footer-dot { width:3px; height:3px; background:var(--gray-600); border-radius:50%; }
 
-        .anggota-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 32px;
-        }
+        /* REVEAL */
+        .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.5s ease, transform 0.5s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
 
-        .anggota-card {
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
-            border-radius: var(--radius);
-            padding: 22px 28px;
-            min-width: 180px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .anggota-card:hover {
-            border-color: var(--blue-400);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow);
-        }
-
-        .anggota-card .avatar {
-            font-size: 2.2em;
-            margin-bottom: 8px;
-        }
-
-        .anggota-card .nama {
-            font-weight: 700;
-            font-size: 0.92em;
-            color: var(--gray-800);
-            margin-bottom: 4px;
-        }
-
-        .anggota-card .nim {
-            font-size: 0.78em;
-            color: var(--gray-400);
-            font-family: var(--font-mono);
-        }
-
-        /* ======= FOOTER ======= */
-        footer {
-            background: var(--blue-900);
-            color: var(--gray-400);
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 0.82em;
-            line-height: 1.8;
-        }
-
-        footer strong { color: var(--gray-200); }
-
-        footer .footer-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-
-        footer .footer-dot {
-            width: 3px; height: 3px;
-            background: var(--gray-600);
-            border-radius: 50%;
-        }
-
-        /* ======= ANIMATIONS ======= */
-        .reveal {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ======= RESPONSIVE ======= */
-        @media (max-width: 768px) {
-            nav { padding: 0 20px; }
-            nav ul { display: none; }
-            .hero { padding: 60px 20px; }
-            .status-bar { padding: 0 20px; }
-            .status-bar-inner { flex-direction: column; gap: 0; }
-            .status-item { border-right: none; border-bottom: 1px solid var(--gray-200); padding: 12px 0; }
-            .section { padding: 48px 20px; }
-            .def-grid { grid-template-columns: 1fr; }
-            .card-row { grid-template-columns: repeat(2, 1fr); }
-            .contoh-grid { grid-template-columns: 1fr; }
-            .headers-grid { grid-template-columns: 1fr; }
-            .security-section { padding: 48px 20px; }
-            .kelompok-section { padding: 48px 20px; }
+        /* RESPONSIVE */
+        @media(max-width:768px){
+            nav { padding:0 20px; }
+            nav ul { display:none; }
+            .hero { padding:60px 20px; }
+            .section { padding:48px 20px; }
+            .def-grid { grid-template-columns:1fr; }
+            .card-row { grid-template-columns:repeat(2,1fr); }
+            .contoh-grid { grid-template-columns:1fr; }
+            .headers-grid { grid-template-columns:1fr; }
+            .security-section { padding:48px 20px; }
+            .kelompok-section { padding:48px 20px; }
+            #secret-panel { margin: 16px; max-height: 95vh; }
         }
     </style>
 </head>
 <body>
 
-    <!-- SCROLL PROGRESS -->
-    <div id="progress-bar"></div>
+<div id="progress-bar"></div>
 
-    <!-- NAVBAR -->
-    <nav>
-        <div class="logo">
-            <span class="dot"></span>
-            Websiteku
+<!-- NAVBAR -->
+<nav>
+    <div class="logo"><span class="dot"></span>Websiteku</div>
+    <ul>
+        <li><a href="#pengertian">Pengertian</a></li>
+        <li><a href="#jenis">Jenis</a></li>
+        <li><a href="#cara-kerja">Cara Kerja</a></li>
+        <li><a href="#contoh">Contoh</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#" onclick="openPanel(); return false;" style="color:var(--gray-600);">🔍</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-badge">📚 Tugas Ethical Hacking · Kelompok 3</div>
+    <h1>Mengenal<br><span class="highlight">Agent AI</span></h1>
+    <p>Pelajari konsep, jenis, dan cara kerja Agent AI — dari perspektif teknologi modern dan keamanan jaringan.</p>
+    <div class="hero-actions">
+        <a href="#pengertian" class="btn-primary">🚀 Mulai Belajar</a>
+        <a href="#security" class="btn-outline">🛡️ Lihat Security Headers</a>
+    </div>
+</div>
+
+<!-- ===================== SECRET OVERLAY ===================== -->
+<div id="secret-overlay">
+    <div id="secret-panel">
+
+        <!-- HEADER (selalu tampil) -->
+        <div class="panel-header">
+            <div class="panel-title">
+                🔍 Visitor Inspector
+                <span class="tag">RESTRICTED</span>
+            </div>
+            <button class="close-btn" onclick="closePanel()" title="Tutup panel">✕</button>
         </div>
-        <ul>
-            <li><a href="#pengertian">Pengertian</a></li>
-            <li><a href="#jenis">Jenis</a></li>
-            <li><a href="#cara-kerja">Cara Kerja</a></li>
-            <li><a href="#contoh">Contoh</a></li>
-            <li><a href="#security">Security</a></li>
-            <li><a href="#quiz">Quiz</a></li>
-            <li><a href="#" onclick="openPanel(); return false;" style="color: var(--gray-600);">🔍</a></li>
-        </ul>
-    </nav>
 
-    <!-- HERO -->
-    <div class="hero">
-        <div class="hero-grid"></div>
-        <div class="hero-badge">📚 Tugas Ethical Hacking · Kelompok 3</div>
-        <h1>Mengenal<br><span class="highlight">Agent AI</span></h1>
-        <p>Pelajari konsep, jenis, dan cara kerja Agent AI — dari perspektif teknologi modern dan keamanan jaringan.</p>
-        <div class="hero-actions">
-            <a href="#pengertian" class="btn-primary">🚀 Mulai Belajar</a>
-            <a href="#security" class="btn-outline">🛡️ Lihat Security Headers</a>
+        <!-- PASSCODE GATE -->
+        <div id="passcode-gate">
+            <span class="gate-icon">🔐</span>
+            <h3>Panel Terbatas</h3>
+            <p>Masukkan kode akses 8 digit untuk membuka panel informasi visitor ini.</p>
+            <input type="password" id="passcode-input" maxlength="8" placeholder="••••••••" autocomplete="off" oninput="handlePasscode(this)">
+            <div id="passcode-hint"></div>
+            <button id="passcode-submit" onclick="submitPasscode()">🔓 Buka Panel</button>
+        </div>
+
+        <!-- PANEL CONTENT -->
+        <div id="panel-content">
+
+            <!-- SECTION: JARINGAN & IP -->
+            <div class="info-section-title">🌐 Jaringan &amp; IP</div>
+
+            <div class="info-row">
+                <div class="info-icon">🖥️</div>
+                <div class="info-body">
+                    <div class="info-label">IP Address <span id="api-source-badge"></span></div>
+                    <div class="info-val loading" id="pi-ip">Mendeteksi…</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🏢</div>
+                <div class="info-body">
+                    <div class="info-label">ISP / Provider</div>
+                    <div class="info-val loading" id="pi-isp">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📡</div>
+                <div class="info-body">
+                    <div class="info-label">ASN</div>
+                    <div class="info-val loading" id="pi-asn">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📶</div>
+                <div class="info-body">
+                    <div class="info-label">Tipe Koneksi Browser</div>
+                    <div class="info-val" id="pi-conn">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🟢</div>
+                <div class="info-body">
+                    <div class="info-label">Status Jaringan</div>
+                    <div class="info-val" id="pi-online">—</div>
+                </div>
+            </div>
+
+            <!-- SECTION: LOKASI -->
+            <div class="info-section-title">📍 Lokasi</div>
+
+            <div class="info-row">
+                <div class="info-icon">🏙️</div>
+                <div class="info-body">
+                    <div class="info-label">Kota / Region</div>
+                    <div class="info-val loading" id="pi-loc">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🗺️</div>
+                <div class="info-body">
+                    <div class="info-label">Negara</div>
+                    <div class="info-val loading" id="pi-country">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📌</div>
+                <div class="info-body">
+                    <div class="info-label">Koordinat (Lat / Lon)</div>
+                    <div class="info-val loading" id="pi-coords">—</div>
+                    <div class="info-sub" id="pi-map-link"></div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🕐</div>
+                <div class="info-body">
+                    <div class="info-label">Timezone</div>
+                    <div class="info-val loading" id="pi-tz">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📮</div>
+                <div class="info-body">
+                    <div class="info-label">Kode Pos</div>
+                    <div class="info-val loading" id="pi-zip">—</div>
+                </div>
+            </div>
+
+            <!-- SECTION: PERANGKAT -->
+            <div class="info-section-title">💻 Perangkat</div>
+
+            <div class="info-row">
+                <div class="info-icon">📱</div>
+                <div class="info-body">
+                    <div class="info-label">Tipe Perangkat</div>
+                    <div class="info-val" id="pi-device">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🖥️</div>
+                <div class="info-body">
+                    <div class="info-label">Sistem Operasi</div>
+                    <div class="info-val" id="pi-os">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🌐</div>
+                <div class="info-body">
+                    <div class="info-label">Browser</div>
+                    <div class="info-val" id="pi-browser">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🖱️</div>
+                <div class="info-body">
+                    <div class="info-label">Platform</div>
+                    <div class="info-val" id="pi-platform">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🖥️</div>
+                <div class="info-body">
+                    <div class="info-label">Resolusi Layar (Fisik)</div>
+                    <div class="info-val" id="pi-screen">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🪟</div>
+                <div class="info-body">
+                    <div class="info-label">Ukuran Window Browser</div>
+                    <div class="info-val" id="pi-window">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🔍</div>
+                <div class="info-body">
+                    <div class="info-label">Pixel Ratio (DPR)</div>
+                    <div class="info-val" id="pi-dpr">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🎨</div>
+                <div class="info-body">
+                    <div class="info-label">Kedalaman Warna</div>
+                    <div class="info-val" id="pi-colordepth">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🌙</div>
+                <div class="info-body">
+                    <div class="info-label">Color Scheme Preferensi</div>
+                    <div class="info-val" id="pi-colorscheme">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">👆</div>
+                <div class="info-body">
+                    <div class="info-label">Layar Sentuh</div>
+                    <div class="info-val" id="pi-touch">—</div>
+                </div>
+            </div>
+
+            <!-- SECTION: HARDWARE -->
+            <div class="info-section-title">⚙️ Hardware</div>
+
+            <div class="info-row">
+                <div class="info-icon">⚙️</div>
+                <div class="info-body">
+                    <div class="info-label">CPU Logical Cores</div>
+                    <div class="info-val" id="pi-cpu">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🧠</div>
+                <div class="info-body">
+                    <div class="info-label">RAM (Estimasi)</div>
+                    <div class="info-val" id="pi-ram">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🔋</div>
+                <div class="info-body">
+                    <div class="info-label">Status Baterai</div>
+                    <div class="info-val" id="pi-battery">Mendeteksi…</div>
+                </div>
+            </div>
+
+            <!-- SECTION: BROWSER INFO -->
+            <div class="info-section-title">🔧 Info Browser</div>
+
+            <div class="info-row">
+                <div class="info-icon">🗣️</div>
+                <div class="info-body">
+                    <div class="info-label">Bahasa Browser</div>
+                    <div class="info-val" id="pi-lang">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🍪</div>
+                <div class="info-body">
+                    <div class="info-label">Cookies Enabled</div>
+                    <div class="info-val" id="pi-cookies">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🔒</div>
+                <div class="info-body">
+                    <div class="info-label">Do Not Track</div>
+                    <div class="info-val" id="pi-dnt">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">⏱️</div>
+                <div class="info-body">
+                    <div class="info-label">Waktu Lokal Perangkat</div>
+                    <div class="info-val" id="pi-localtime">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🕰️</div>
+                <div class="info-body">
+                    <div class="info-label">UTC Offset</div>
+                    <div class="info-val" id="pi-utcoffset">—</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📄</div>
+                <div class="info-body">
+                    <div class="info-label">User Agent (Raw)</div>
+                    <div class="info-val" id="pi-ua" style="font-size:0.72em; line-height:1.6;">—</div>
+                </div>
+            </div>
+
+            <div class="panel-footer" id="panel-footer-text">
+                Mengambil data… · multi-fallback API
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- ===================== END SECRET OVERLAY ===================== -->
+
+<hr class="divider">
+
+<!-- SECTION 1: PENGERTIAN -->
+<section class="section reveal" id="pengertian">
+    <div class="section-label">Materi 01</div>
+    <h2>Apa itu Agent AI?</h2>
+    <p>Agent AI adalah program komputer yang bisa <strong>mengambil keputusan secara mandiri</strong> berdasarkan informasi dari lingkungannya untuk mencapai tujuan tertentu.</p>
+    <div class="def-grid">
+        <div class="def-card">
+            <h3>📌 Definisi Sederhana</h3>
+            <p>Bayangkan kamu punya asisten yang bisa melihat situasi di sekitarnya, berpikir apa yang harus dilakukan, lalu melakukan tindakan yang tepat — tanpa perlu kamu suruh satu per satu. Itulah Agent AI.</p>
+        </div>
+        <div class="def-card">
+            <h3>📖 Menurut Referensi</h3>
+            <p>Menurut Russell &amp; Norvig (2021) dalam <em>Artificial Intelligence: A Modern Approach</em>, sebuah agent adalah entitas yang <strong>mempersepsi lingkungannya melalui sensor</strong> dan bertindak melalui aktuator untuk mencapai tujuannya.</p>
         </div>
     </div>
+    <div class="note-box">
+        <strong>📝 Catatan Penting:</strong> Agent AI berbeda dengan program biasa. Program biasa hanya menjalankan instruksi yang sudah ditulis, sedangkan Agent AI bisa beradaptasi dengan situasi yang berubah-ubah secara dinamis.
+    </div>
+</section>
 
-    <!-- SECRET OVERLAY -->
-    <div id="secret-overlay">
-        <div id="secret-panel">
-            <div class="panel-header">
-                <div class="panel-title">
-                    🔍 Visitor Inspector
-                    <span class="tag">RESTRICTED</span>
-                </div>
-                <button class="close-btn" onclick="closePanel()">✕</button>
-            </div>
+<hr class="divider">
 
-            <!-- PASSCODE GATE -->
-            <div id="passcode-gate">
-                <p>Masukkan kode akses untuk membuka panel ini</p>
-                <input type="password" id="passcode-input" maxlength="8" placeholder="••••••••" autocomplete="off" oninput="handlePasscode(this)">
-                <div id="passcode-hint"></div>
-                <button id="passcode-submit" onclick="submitPasscode()">Buka Panel</button>
-            </div>
+<!-- SECTION 2: JENIS -->
+<section class="section reveal" id="jenis">
+    <div class="section-label">Materi 02</div>
+    <h2>Jenis-Jenis Agent AI</h2>
+    <p>Secara umum, ada lima jenis Agent AI yang dipelajari dalam mata kuliah Kecerdasan Buatan:</p>
+    <div class="card-row">
+        <div class="card"><span class="icon">📡</span><h3>Simple Reflex Agent</h3><p>Bertindak berdasarkan kondisi saat ini saja. Tidak punya memori. Contoh: sensor lampu otomatis.</p></div>
+        <div class="card"><span class="icon">🧠</span><h3>Model-Based Agent</h3><p>Punya model internal tentang dunia, bisa mengingat kondisi sebelumnya. Lebih pintar dari simple reflex.</p></div>
+        <div class="card"><span class="icon">🎯</span><h3>Goal-Based Agent</h3><p>Bertindak untuk mencapai tujuan tertentu. Bisa mempertimbangkan berbagai pilihan tindakan.</p></div>
+        <div class="card"><span class="icon">⚖️</span><h3>Utility-Based Agent</h3><p>Memilih tindakan yang memberikan keuntungan terbesar menggunakan fungsi utilitas.</p></div>
+        <div class="card"><span class="icon">📚</span><h3>Learning Agent</h3><p>Bisa belajar dari pengalaman dan memperbaiki performanya sendiri dari waktu ke waktu.</p></div>
+    </div>
+</section>
 
-            <!-- PANEL CONTENT (hidden until correct passcode) -->
-            <div id="panel-content">
-                <div class="info-row">
-                    <div class="info-icon">🖥️</div>
-                    <div class="info-body">
-                        <div class="info-label">IP Address</div>
-                        <div class="info-val loading" id="pi-ip">Mendeteksi...</div>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <div class="info-icon">🌐</div>
-                    <div class="info-body">
-                        <div class="info-label">ISP / Provider</div>
-                        <div class="info-val loading" id="pi-isp">—</div>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <div class="info-icon">📍</div>
-                    <div class="info-body">
-                        <div class="info-label">Lokasi</div>
-                        <div class="info-val loading" id="pi-loc">—</div>
-                        <div class="info-sub" id="pi-coords">—</div>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <div class="info-icon">🗺️</div>
-                    <div class="info-body">
-                        <div class="info-label">Negara / Region</div>
-                        <div class="info-val loading" id="pi-country">—</div>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <div class="info-icon">🕐</div>
-                    <div class="info-body">
-                        <div class="info-label">Timezone</div>
-                        <div class="info-val loading" id="pi-tz">—</div>
-                    </div>
-                </div>
-                <div class="info-row">
-                    <div class="info-icon">📱</div>
-                    <div class="info-body">
-                        <div class="info-label">User Agent</div>
-                        <div class="info-val" id="pi-ua" style="font-size:0.72em; word-break:break-all; white-space:normal;"></div>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    Data diambil real-time saat panel dibuka · ipapi.co
-                </div>
-            </div>
+<hr class="divider">
+
+<!-- SECTION 3: CARA KERJA -->
+<section class="section reveal" id="cara-kerja">
+    <div class="section-label">Materi 03</div>
+    <h2>Cara Kerja Agent AI</h2>
+    <p>Agent AI bekerja dalam sebuah siklus yang terus berulang. Berikut adalah tahapannya:</p>
+    <div class="steps">
+        <div class="step"><div class="num">1</div><div><h4>Persepsi (Sensing)</h4><p>Agent menerima informasi dari lingkungannya melalui sensor. Contoh: kamera, mikrofon, atau data dari internet.</p></div></div>
+        <div class="step"><div class="num">2</div><div><h4>Pemrosesan (Processing)</h4><p>Agent memproses informasi yang didapat dan mencocokkannya dengan tujuan yang sudah ditentukan.</p></div></div>
+        <div class="step"><div class="num">3</div><div><h4>Pengambilan Keputusan (Decision Making)</h4><p>Berdasarkan pemrosesan, agent memilih tindakan terbaik yang harus dilakukan.</p></div></div>
+        <div class="step"><div class="num">4</div><div><h4>Tindakan (Action)</h4><p>Agent melakukan tindakan melalui aktuator. Contoh: menampilkan teks, menggerakkan robot, mengirim email, dll.</p></div></div>
+        <div class="step"><div class="num">5</div><div><h4>Evaluasi &amp; Pembelajaran (Learning)</h4><p>Beberapa agent mengevaluasi hasil tindakannya untuk meningkatkan performa di masa depan.</p></div></div>
+    </div>
+</section>
+
+<hr class="divider">
+
+<!-- SECTION 4: CONTOH -->
+<section class="section reveal" id="contoh">
+    <div class="section-label">Materi 04</div>
+    <h2>Contoh Agent AI di Kehidupan Nyata</h2>
+    <p>Agent AI sudah banyak digunakan di sekitar kita, meskipun kita sering tidak menyadarinya:</p>
+    <div class="contoh-grid">
+        <div class="contoh-card"><div class="badge">🔍</div><div><h4>Google Search</h4><p>Mesin pencari yang bisa memahami maksud pencarian kita dan menampilkan hasil yang relevan.</p></div></div>
+        <div class="contoh-card"><div class="badge">🛒</div><div><h4>Rekomendasi Shopee/Tokopedia</h4><p>Agent yang merekomendasikan produk berdasarkan riwayat belanja dan pencarian kita.</p></div></div>
+        <div class="contoh-card"><div class="badge">🎵</div><div><h4>Spotify / YouTube</h4><p>Merekomendasikan lagu atau video yang kemungkinan besar kita suka berdasarkan kebiasaan.</p></div></div>
+        <div class="contoh-card"><div class="badge">🚗</div><div><h4>Mobil Self-Driving</h4><p>Kendaraan otonom yang bisa mengemudi sendiri menggunakan sensor dan AI untuk navigasi.</p></div></div>
+        <div class="contoh-card"><div class="badge">💬</div><div><h4>Chatbot / Virtual Assistant</h4><p>Siri, Google Assistant, ChatGPT yang bisa menjawab pertanyaan dan membantu tugas.</p></div></div>
+        <div class="contoh-card"><div class="badge">🎮</div><div><h4>NPC dalam Game</h4><p>Karakter game yang bergerak dan bereaksi secara cerdas terhadap tindakan pemain.</p></div></div>
+    </div>
+</section>
+
+<!-- SECURITY -->
+<div class="security-section reveal" id="security">
+    <div class="security-inner">
+        <div class="section-label">Security Config</div>
+        <h2>🛡️ HTTP Security Headers</h2>
+        <p style="color:var(--gray-400);margin-bottom:36px;max-width:640px;line-height:1.8;">
+            Website ini di-deploy dengan Cloudflare Pages menggunakan file <code style="font-family:var(--font-mono);color:var(--accent);font-size:0.9em;">_headers</code> yang mengaktifkan security headers berikut secara otomatis:
+        </p>
+        <div class="headers-grid">
+            <div class="header-card"><div class="hname">X-Frame-Options</div><div class="hval">DENY</div><div class="hdesc">Mencegah website di-embed dalam iframe oleh situs lain. Melindungi dari serangan Clickjacking.</div></div>
+            <div class="header-card"><div class="hname">X-Content-Type-Options</div><div class="hval">nosniff</div><div class="hdesc">Mencegah browser menebak MIME type dari file. Melindungi dari MIME-type sniffing attack.</div></div>
+            <div class="header-card"><div class="hname">Referrer-Policy</div><div class="hval">same-origin</div><div class="hdesc">Membatasi informasi referrer hanya dikirim ke domain yang sama. Menjaga privasi user.</div></div>
+            <div class="header-card"><div class="hname">Permissions-Policy</div><div class="hval">camera=(), microphone=(), geolocation=()</div><div class="hdesc">Menonaktifkan akses ke kamera, mikrofon, dan lokasi. Mengurangi attack surface pada browser.</div></div>
+            <div class="header-card" style="grid-column:span 2;"><div class="hname">Content-Security-Policy</div><div class="hval">default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'</div><div class="hdesc">Membatasi sumber konten yang boleh dimuat browser. Perlindungan utama terhadap serangan XSS (Cross-Site Scripting).</div></div>
+        </div>
+        <div style="margin-top:16px;font-family:var(--font-mono);font-size:0.78em;color:rgba(148,163,184,0.55);font-style:italic;">
+            ℹ️ Verifikasi status aktif: buka DevTools (F12) → Network → klik index.html → Response Headers
         </div>
     </div>
+</div>
 
-    <hr class="divider">
+<hr class="divider">
 
-    <!-- SECTION 1: PENGERTIAN -->
-    <section class="section reveal" id="pengertian">
-        <div class="section-label">Materi 01</div>
-        <h2>Apa itu Agent AI?</h2>
-        <p>Agent AI adalah program komputer yang bisa <strong>mengambil keputusan secara mandiri</strong> berdasarkan informasi dari lingkungannya untuk mencapai tujuan tertentu.</p>
-
-        <div class="def-grid">
-            <div class="def-card">
-                <h3>📌 Definisi Sederhana</h3>
-                <p>Bayangkan kamu punya asisten yang bisa melihat situasi di sekitarnya, berpikir apa yang harus dilakukan, lalu melakukan tindakan yang tepat — tanpa perlu kamu suruh satu per satu. Itulah Agent AI.</p>
+<!-- QUIZ -->
+<section class="section reveal" id="quiz">
+    <div class="section-label">Evaluasi</div>
+    <h2>🧪 Mini Quiz — Uji Pemahamanmu!</h2>
+    <p>Jawab pertanyaan berikut untuk mengecek pemahamanmu tentang Agent AI:</p>
+    <div class="quiz-wrapper">
+        <div class="quiz-card">
+            <p class="soal"><span class="qnum">1</span>Apa yang membedakan Agent AI dengan program komputer biasa?</p>
+            <div class="pilihan">
+                <label><input type="radio" name="q1" value="a"> A. Agent AI lebih mahal harganya</label>
+                <label><input type="radio" name="q1" value="b"> B. Agent AI bisa beradaptasi dan membuat keputusan sendiri</label>
+                <label><input type="radio" name="q1" value="c"> C. Agent AI hanya bisa digunakan di robot</label>
+                <label><input type="radio" name="q1" value="d"> D. Agent AI tidak membutuhkan data sama sekali</label>
             </div>
-            <div class="def-card">
-                <h3>📖 Menurut Referensi</h3>
-                <p>Menurut Russell & Norvig (2021) dalam <em>Artificial Intelligence: A Modern Approach</em>, sebuah agent adalah entitas yang <strong>mempersepsi lingkungannya melalui sensor</strong> dan bertindak melalui aktuator untuk mencapai tujuannya.</p>
-            </div>
+            <button class="quiz-btn" onclick="cekJawaban('q1','b','hasil1')">Cek Jawaban</button>
+            <div id="hasil1" class="hasil"></div>
         </div>
-
-        <div class="note-box">
-            <strong>📝 Catatan Penting:</strong> Agent AI berbeda dengan program biasa. Program biasa hanya menjalankan instruksi yang sudah ditulis, sedangkan Agent AI bisa beradaptasi dengan situasi yang berubah-ubah secara dinamis.
+        <div class="quiz-card">
+            <p class="soal"><span class="qnum">2</span>Jenis Agent AI yang bisa belajar dari pengalaman disebut...</p>
+            <div class="pilihan">
+                <label><input type="radio" name="q2" value="a"> A. Simple Reflex Agent</label>
+                <label><input type="radio" name="q2" value="b"> B. Goal-Based Agent</label>
+                <label><input type="radio" name="q2" value="c"> C. Learning Agent</label>
+                <label><input type="radio" name="q2" value="d"> D. Utility-Based Agent</label>
+            </div>
+            <button class="quiz-btn" onclick="cekJawaban('q2','c','hasil2')">Cek Jawaban</button>
+            <div id="hasil2" class="hasil"></div>
         </div>
-    </section>
-
-    <hr class="divider">
-
-    <!-- SECTION 2: JENIS -->
-    <section class="section reveal" id="jenis">
-        <div class="section-label">Materi 02</div>
-        <h2>Jenis-Jenis Agent AI</h2>
-        <p>Secara umum, ada lima jenis Agent AI yang dipelajari dalam mata kuliah Kecerdasan Buatan:</p>
-
-        <div class="card-row">
-            <div class="card">
-                <span class="icon">📡</span>
-                <h3>Simple Reflex Agent</h3>
-                <p>Bertindak berdasarkan kondisi saat ini saja. Tidak punya memori. Contoh: sensor lampu otomatis.</p>
+        <div class="quiz-card">
+            <p class="soal"><span class="qnum">3</span>Manakah berikut ini yang BUKAN contoh Agent AI?</p>
+            <div class="pilihan">
+                <label><input type="radio" name="q3" value="a"> A. Rekomendasi YouTube</label>
+                <label><input type="radio" name="q3" value="b"> B. Google Assistant</label>
+                <label><input type="radio" name="q3" value="c"> C. Aplikasi Kalkulator biasa</label>
+                <label><input type="radio" name="q3" value="d"> D. NPC dalam game</label>
             </div>
-            <div class="card">
-                <span class="icon">🧠</span>
-                <h3>Model-Based Agent</h3>
-                <p>Punya model internal tentang dunia, bisa mengingat kondisi sebelumnya. Lebih pintar dari simple reflex.</p>
-            </div>
-            <div class="card">
-                <span class="icon">🎯</span>
-                <h3>Goal-Based Agent</h3>
-                <p>Bertindak untuk mencapai tujuan tertentu. Bisa mempertimbangkan berbagai pilihan tindakan.</p>
-            </div>
-            <div class="card">
-                <span class="icon">⚖️</span>
-                <h3>Utility-Based Agent</h3>
-                <p>Memilih tindakan yang memberikan keuntungan terbesar menggunakan fungsi utilitas.</p>
-            </div>
-            <div class="card">
-                <span class="icon">📚</span>
-                <h3>Learning Agent</h3>
-                <p>Bisa belajar dari pengalaman dan memperbaiki performanya sendiri dari waktu ke waktu.</p>
-            </div>
-        </div>
-    </section>
-
-    <hr class="divider">
-
-    <!-- SECTION 3: CARA KERJA -->
-    <section class="section reveal" id="cara-kerja">
-        <div class="section-label">Materi 03</div>
-        <h2>Cara Kerja Agent AI</h2>
-        <p>Agent AI bekerja dalam sebuah siklus yang terus berulang. Berikut adalah tahapannya:</p>
-
-        <div class="steps">
-            <div class="step">
-                <div class="num">1</div>
-                <div>
-                    <h4>Persepsi (Sensing)</h4>
-                    <p>Agent menerima informasi dari lingkungannya melalui sensor. Contoh: kamera, mikrofon, atau data dari internet.</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="num">2</div>
-                <div>
-                    <h4>Pemrosesan (Processing)</h4>
-                    <p>Agent memproses informasi yang didapat dan mencocokkannya dengan tujuan yang sudah ditentukan.</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="num">3</div>
-                <div>
-                    <h4>Pengambilan Keputusan (Decision Making)</h4>
-                    <p>Berdasarkan pemrosesan, agent memilih tindakan terbaik yang harus dilakukan.</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="num">4</div>
-                <div>
-                    <h4>Tindakan (Action)</h4>
-                    <p>Agent melakukan tindakan melalui aktuator. Contoh: menampilkan teks, menggerakkan robot, mengirim email, dll.</p>
-                </div>
-            </div>
-            <div class="step">
-                <div class="num">5</div>
-                <div>
-                    <h4>Evaluasi & Pembelajaran (Learning)</h4>
-                    <p>Beberapa agent mengevaluasi hasil tindakannya untuk meningkatkan performa di masa depan.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="divider">
-
-    <!-- SECTION 4: CONTOH -->
-    <section class="section reveal" id="contoh">
-        <div class="section-label">Materi 04</div>
-        <h2>Contoh Agent AI di Kehidupan Nyata</h2>
-        <p>Agent AI sudah banyak digunakan di sekitar kita, meskipun kita sering tidak menyadarinya:</p>
-
-        <div class="contoh-grid">
-            <div class="contoh-card">
-                <div class="badge">🔍</div>
-                <div>
-                    <h4>Google Search</h4>
-                    <p>Mesin pencari yang bisa memahami maksud pencarian kita dan menampilkan hasil yang relevan.</p>
-                </div>
-            </div>
-            <div class="contoh-card">
-                <div class="badge">🛒</div>
-                <div>
-                    <h4>Rekomendasi Shopee/Tokopedia</h4>
-                    <p>Agent yang merekomendasikan produk berdasarkan riwayat belanja dan pencarian kita.</p>
-                </div>
-            </div>
-            <div class="contoh-card">
-                <div class="badge">🎵</div>
-                <div>
-                    <h4>Spotify / YouTube</h4>
-                    <p>Merekomendasikan lagu atau video yang kemungkinan besar kita suka berdasarkan kebiasaan.</p>
-                </div>
-            </div>
-            <div class="contoh-card">
-                <div class="badge">🚗</div>
-                <div>
-                    <h4>Mobil Self-Driving</h4>
-                    <p>Kendaraan otonom yang bisa mengemudi sendiri menggunakan sensor dan AI untuk navigasi.</p>
-                </div>
-            </div>
-            <div class="contoh-card">
-                <div class="badge">💬</div>
-                <div>
-                    <h4>Chatbot / Virtual Assistant</h4>
-                    <p>Siri, Google Assistant, ChatGPT yang bisa menjawab pertanyaan dan membantu tugas.</p>
-                </div>
-            </div>
-            <div class="contoh-card">
-                <div class="badge">🎮</div>
-                <div>
-                    <h4>NPC dalam Game</h4>
-                    <p>Karakter game yang bergerak dan bereaksi secara cerdas terhadap tindakan pemain.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECURITY HEADERS SECTION -->
-    <div class="security-section reveal" id="security">
-        <div class="security-inner">
-            <div class="section-label">Security Config</div>
-            <h2>🛡️ HTTP Security Headers</h2>
-            <p style="color: var(--gray-400); margin-bottom: 36px; max-width: 640px; line-height: 1.8;">
-                Website ini di-deploy dengan Cloudflare Pages menggunakan file <code style="font-family: var(--font-mono); color: var(--accent); font-size:0.9em;">_headers</code> yang mengaktifkan security headers berikut secara otomatis:
-            </p>
-
-            <div class="headers-grid">
-                <div class="header-card">
-                    <div class="hname">X-Frame-Options</div>
-                    <div class="hval">DENY</div>
-                    <div class="hdesc">Mencegah website di-embed dalam iframe oleh situs lain. Melindungi dari serangan Clickjacking.</div>
-                </div>
-                <div class="header-card">
-                    <div class="hname">X-Content-Type-Options</div>
-                    <div class="hval">nosniff</div>
-                    <div class="hdesc">Mencegah browser menebak MIME type dari file. Melindungi dari MIME-type sniffing attack.</div>
-                </div>
-                <div class="header-card">
-                    <div class="hname">Referrer-Policy</div>
-                    <div class="hval">same-origin</div>
-                    <div class="hdesc">Membatasi informasi referrer hanya dikirim ke domain yang sama. Menjaga privasi user.</div>
-                </div>
-                <div class="header-card">
-                    <div class="hname">Permissions-Policy</div>
-                    <div class="hval">camera=(), microphone=(), geolocation=()</div>
-                    <div class="hdesc">Menonaktifkan akses ke kamera, mikrofon, dan lokasi. Mengurangi attack surface pada browser.</div>
-                </div>
-                <div class="header-card" style="grid-column: span 2;">
-                    <div class="hname">Content-Security-Policy</div>
-                    <div class="hval">default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'</div>
-                    <div class="hdesc">Membatasi sumber konten yang boleh dimuat browser. Perlindungan utama terhadap serangan XSS (Cross-Site Scripting).</div>
-                </div>
-            </div>
-            <div class="header-note" style="margin-top:16px; font-family: var(--font-mono); font-size:0.78em; color:rgba(148,163,184,0.55); font-style:italic;">
-                ℹ️ Verifikasi status aktif: buka DevTools (F12) → Network → klik index.html → Response Headers
-            </div>
+            <button class="quiz-btn" onclick="cekJawaban('q3','c','hasil3')">Cek Jawaban</button>
+            <div id="hasil3" class="hasil"></div>
         </div>
     </div>
+</section>
 
-    <hr class="divider">
+<hr class="divider">
 
-    <!-- SECTION 5: QUIZ -->
-    <section class="section reveal" id="quiz">
-        <div class="section-label">Evaluasi</div>
-        <h2>🧪 Mini Quiz — Uji Pemahamanmu!</h2>
-        <p>Jawab pertanyaan berikut untuk mengecek pemahamanmu tentang Agent AI:</p>
-
-        <div class="quiz-wrapper">
-
-            <div class="quiz-card">
-                <p class="soal"><span class="qnum">1</span> Apa yang membedakan Agent AI dengan program komputer biasa?</p>
-                <div class="pilihan">
-                    <label><input type="radio" name="q1" value="a"> A. Agent AI lebih mahal harganya</label>
-                    <label><input type="radio" name="q1" value="b"> B. Agent AI bisa beradaptasi dan membuat keputusan sendiri</label>
-                    <label><input type="radio" name="q1" value="c"> C. Agent AI hanya bisa digunakan di robot</label>
-                    <label><input type="radio" name="q1" value="d"> D. Agent AI tidak membutuhkan data sama sekali</label>
-                </div>
-                <button class="quiz-btn" onclick="cekJawaban('q1', 'b', 'hasil1')">Cek Jawaban</button>
-                <div id="hasil1" class="hasil"></div>
-            </div>
-
-            <div class="quiz-card">
-                <p class="soal"><span class="qnum">2</span> Jenis Agent AI yang bisa belajar dari pengalaman disebut...</p>
-                <div class="pilihan">
-                    <label><input type="radio" name="q2" value="a"> A. Simple Reflex Agent</label>
-                    <label><input type="radio" name="q2" value="b"> B. Goal-Based Agent</label>
-                    <label><input type="radio" name="q2" value="c"> C. Learning Agent</label>
-                    <label><input type="radio" name="q2" value="d"> D. Utility-Based Agent</label>
-                </div>
-                <button class="quiz-btn" onclick="cekJawaban('q2', 'c', 'hasil2')">Cek Jawaban</button>
-                <div id="hasil2" class="hasil"></div>
-            </div>
-
-            <div class="quiz-card">
-                <p class="soal"><span class="qnum">3</span> Manakah berikut ini yang BUKAN contoh Agent AI?</p>
-                <div class="pilihan">
-                    <label><input type="radio" name="q3" value="a"> A. Rekomendasi YouTube</label>
-                    <label><input type="radio" name="q3" value="b"> B. Google Assistant</label>
-                    <label><input type="radio" name="q3" value="c"> C. Aplikasi Kalkulator biasa</label>
-                    <label><input type="radio" name="q3" value="d"> D. NPC dalam game</label>
-                </div>
-                <button class="quiz-btn" onclick="cekJawaban('q3', 'c', 'hasil3')">Cek Jawaban</button>
-                <div id="hasil3" class="hasil"></div>
-            </div>
-
-        </div>
-    </section>
-
-    <hr class="divider">
-
-    <!-- KELOMPOK -->
-    <div class="kelompok-section reveal">
-        <div class="kelompok-inner">
-            <div class="section-label">Tim</div>
-            <h2>👥 Profil Kelompok</h2>
-            <p style="color: var(--gray-600); margin-top: 8px;">Mata Kuliah: <strong>Ethical Hacking</strong></p>
-
-            <div class="anggota-grid">
-                <div class="anggota-card">
-                    <div class="avatar">👨‍💻</div>
-                    <div class="nama">Ahmad Faisal Hafidz</div>
-                    <div class="nim">101012300379</div>
-                </div>
-                <div class="anggota-card">
-                    <div class="avatar">👨‍💻</div>
-                    <div class="nama">William Eka Chandra</div>
-                    <div class="nim">101012300066</div>
-                </div>
-                <div class="anggota-card">
-                    <div class="avatar">👨‍💻</div>
-                    <div class="nama">Hamzah Haki Triadi</div>
-                    <div class="nim">101012330057</div>
-                </div>
-            </div>
+<!-- KELOMPOK -->
+<div class="kelompok-section reveal">
+    <div class="kelompok-inner">
+        <div class="section-label">Tim</div>
+        <h2>👥 Profil Kelompok</h2>
+        <p style="color:var(--gray-600);margin-top:8px;">Mata Kuliah: <strong>Ethical Hacking</strong></p>
+        <div class="anggota-grid">
+            <div class="anggota-card"><div class="avatar">👨‍💻</div><div class="nama">Ahmad Faisal Hafidz</div><div class="nim">101012300379</div></div>
+            <div class="anggota-card"><div class="avatar">👨‍💻</div><div class="nama">William Eka Chandra</div><div class="nim">101012300066</div></div>
+            <div class="anggota-card"><div class="avatar">👨‍💻</div><div class="nama">Hamzah Haki Triadi</div><div class="nim">101012330057</div></div>
         </div>
     </div>
+</div>
 
-    <!-- FOOTER -->
-    <footer>
-        <div class="footer-row">
-            <span>© 2026 <strong>Websiteku</strong></span>
-            <span class="footer-dot"></span>
-            <span>Tugas Praktikum Ethical Hacking</span>
-            <span class="footer-dot"></span>
-            <span>Deployed on <strong>Cloudflare Pages</strong></span>
-            <span class="footer-dot"></span>
-            <span>🔒 HTTPS Enabled</span>
-        </div>
-        <div>Topik: Agent AI</div>
-    </footer>
+<footer>
+    <div class="footer-row">
+        <span>© 2026 <strong>Websiteku</strong></span>
+        <span class="footer-dot"></span>
+        <span>Tugas Praktikum Ethical Hacking</span>
+        <span class="footer-dot"></span>
+        <span>Deployed on <strong>Cloudflare Pages</strong></span>
+        <span class="footer-dot"></span>
+        <span>🔒 HTTPS Enabled</span>
+    </div>
+    <div>Topik: Agent AI</div>
+</footer>
 
-    <script>
-        // === SCROLL PROGRESS BAR ===
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            document.getElementById('progress-bar').style.width = pct + '%';
-        });
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+// ============================================================
+//  SCROLL PROGRESS
+// ============================================================
+window.addEventListener('scroll', () => {
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+});
 
-        // === REVEAL ON SCROLL ===
-        const revealEls = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(el => {
-                if (el.isIntersecting) {
-                    el.target.classList.add('visible');
-                    observer.unobserve(el.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        revealEls.forEach(el => observer.observe(el));
+// ============================================================
+//  REVEAL ON SCROLL
+// ============================================================
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // === QUIZ ===
-        function cekJawaban(namaGrup, jawabanBenar, idHasil) {
-            var pilihan = document.querySelectorAll('input[name="' + namaGrup + '"]');
-            var jawaban = null;
-            for (var i = 0; i < pilihan.length; i++) {
-                if (pilihan[i].checked) { jawaban = pilihan[i].value; break; }
-            }
-            var el = document.getElementById(idHasil);
-            el.className = 'hasil';
-            if (jawaban === null) {
-                el.className = 'hasil warn';
-                el.textContent = '⚠️ Pilih salah satu jawaban dulu!';
-            } else if (jawaban === jawabanBenar) {
-                el.className = 'hasil benar';
-                el.textContent = '✅ Benar! Jawaban kamu tepat!';
-            } else {
-                el.className = 'hasil salah';
-                el.textContent = '❌ Salah. Coba lagi atau review materinya ya!';
-            }
+// ============================================================
+//  QUIZ
+// ============================================================
+function cekJawaban(grup, benar, idHasil) {
+    const pilihan = document.querySelectorAll('input[name="' + grup + '"]');
+    let jawaban = null;
+    pilihan.forEach(p => { if (p.checked) jawaban = p.value; });
+    const el = document.getElementById(idHasil);
+    if (!jawaban) { el.className = 'hasil warn'; el.textContent = '⚠️ Pilih salah satu jawaban dulu!'; }
+    else if (jawaban === benar) { el.className = 'hasil benar'; el.textContent = '✅ Benar! Jawaban kamu tepat!'; }
+    else { el.className = 'hasil salah'; el.textContent = '❌ Salah. Coba lagi atau review materinya ya!'; }
+}
+
+// ============================================================
+//  SECRET PANEL — reset sandi setiap kali panel ditutup
+// ============================================================
+const PASSCODE = '12345678';
+
+function openPanel() {
+    // Selalu reset ke gate saat dibuka
+    resetToGate();
+    document.getElementById('secret-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('passcode-input').focus(), 120);
+}
+
+function closePanel() {
+    document.getElementById('secret-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+    // Reset state setelah animasi close selesai
+    setTimeout(resetToGate, 300);
+}
+
+function resetToGate() {
+    // Sembunyikan konten, tampilkan gate
+    document.getElementById('passcode-gate').style.display = '';
+    document.getElementById('panel-content').style.display = 'none';
+    // Bersihkan input & pesan error
+    const inp = document.getElementById('passcode-input');
+    if (inp) { inp.value = ''; inp.classList.remove('shake'); }
+    const hint = document.getElementById('passcode-hint');
+    if (hint) hint.textContent = '';
+    // Reset semua nilai info ke "loading" agar saat dibuka ulang tidak tampil data lama
+    document.querySelectorAll('.info-val').forEach(el => {
+        el.textContent = '—';
+        el.classList.remove('ok','bad','warn');
+    });
+    document.getElementById('pi-map-link').textContent = '';
+    const badge = document.getElementById('api-source-badge');
+    if (badge) badge.innerHTML = '';
+    document.getElementById('panel-footer-text').textContent = 'Mengambil data… · multi-fallback API';
+}
+
+// Tutup jika klik di luar panel
+document.getElementById('secret-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closePanel();
+});
+
+// Tutup dengan Escape
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+// Buka via hash URL
+function checkHash() {
+    if (window.location.hash === '#12345678') {
+        openPanel();
+        history.replaceState(null, '', window.location.pathname);
+    }
+}
+checkHash();
+window.addEventListener('hashchange', checkHash);
+
+// Enter di input passcode
+document.getElementById('passcode-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitPasscode();
+});
+
+function handlePasscode(input) {
+    document.getElementById('passcode-hint').textContent = '';
+    input.classList.remove('shake');
+}
+
+function submitPasscode() {
+    const val = document.getElementById('passcode-input').value;
+    if (val === PASSCODE) {
+        document.getElementById('passcode-gate').style.display = 'none';
+        document.getElementById('panel-content').style.display = 'block';
+        loadAllData();
+    } else {
+        const inp = document.getElementById('passcode-input');
+        inp.classList.remove('shake');
+        void inp.offsetWidth; // reflow untuk re-trigger animasi
+        inp.classList.add('shake');
+        document.getElementById('passcode-hint').textContent = '❌ Kode akses salah, coba lagi';
+        inp.value = '';
+        setTimeout(() => inp.focus(), 50);
+    }
+}
+
+// ============================================================
+//  DEVICE DETECTION (browser-side, tidak butuh API)
+// ============================================================
+function getDeviceType() {
+    const ua = navigator.userAgent;
+    if (/tablet|ipad|playbook|silk/i.test(ua)) return 'Tablet 📱';
+    if (/mobile|android|iphone|ipod|blackberry|opera mini|iemobile|wpdesktop/i.test(ua)) return 'Mobile 📱';
+    return 'Desktop 🖥️';
+}
+
+function getOS() {
+    const ua = navigator.userAgent;
+    const pf = navigator.platform || '';
+    if (/Windows NT 10\.0/.test(ua)) return 'Windows 10 / 11';
+    if (/Windows NT 6\.3/.test(ua)) return 'Windows 8.1';
+    if (/Windows NT 6\.1/.test(ua)) return 'Windows 7';
+    if (/Windows/.test(ua))         return 'Windows (versi lain)';
+    const mac = ua.match(/Mac OS X ([\d_]+)/);
+    if (mac) return 'macOS ' + mac[1].replace(/_/g, '.');
+    const ios = ua.match(/(?:iPhone|iPad|iPod).*OS ([\d_]+)/);
+    if (ios) return 'iOS ' + ios[1].replace(/_/g, '.');
+    const android = ua.match(/Android ([\d.]+)/);
+    if (android) return 'Android ' + android[1];
+    if (/Linux/.test(pf) || /Linux/.test(ua)) return 'Linux';
+    if (/CrOS/.test(ua)) return 'ChromeOS';
+    return 'Unknown OS';
+}
+
+function getBrowser() {
+    const ua = navigator.userAgent;
+    if (/Edg\//.test(ua))     return 'Microsoft Edge ' + (ua.match(/Edg\/([\d.]+)/) || ['','?'])[1];
+    if (/OPR\//.test(ua))     return 'Opera ' + (ua.match(/OPR\/([\d.]+)/) || ['','?'])[1];
+    if (/SamsungBrowser/.test(ua)) return 'Samsung Internet ' + (ua.match(/SamsungBrowser\/([\d.]+)/) || ['','?'])[1];
+    if (/UCBrowser/.test(ua)) return 'UC Browser ' + (ua.match(/UCBrowser\/([\d.]+)/) || ['','?'])[1];
+    if (/YaBrowser/.test(ua)) return 'Yandex Browser';
+    if (/Brave/.test(ua))     return 'Brave';
+    if (/Chrome\//.test(ua))  return 'Chrome ' + (ua.match(/Chrome\/([\d.]+)/) || ['','?'])[1];
+    if (/Firefox\//.test(ua)) return 'Firefox ' + (ua.match(/Firefox\/([\d.]+)/) || ['','?'])[1];
+    if (/Safari\//.test(ua))  return 'Safari ' + (ua.match(/Version\/([\d.]+)/) || ['','?'])[1];
+    if (/MSIE|Trident/.test(ua)) return 'Internet Explorer';
+    return 'Unknown Browser';
+}
+
+function getConnectionType() {
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!conn) return 'Tidak dapat dideteksi (API tidak didukung)';
+    const parts = [];
+    if (conn.effectiveType) parts.push(conn.effectiveType.toUpperCase());
+    if (conn.type && conn.type !== 'unknown') parts.push('· ' + conn.type);
+    if (conn.downlink != null) parts.push('· ↓' + conn.downlink + ' Mbps');
+    if (conn.rtt != null)      parts.push('· RTT ' + conn.rtt + 'ms');
+    if (conn.saveData)         parts.push('· [Data Saver ON]');
+    return parts.join(' ') || 'Tersedia';
+}
+
+function getColorScheme() {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches)  return '🌙 Dark Mode';
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) return '☀️ Light Mode';
+    return 'Tidak diketahui';
+}
+
+function getBatteryInfo(cb) {
+    if (!navigator.getBattery) return cb('API tidak didukung browser ini');
+    navigator.getBattery()
+        .then(b => {
+            const lvl    = Math.round(b.level * 100) + '%';
+            const status = b.charging ? '⚡ Charging' : '🔋 Discharging';
+            const timeLeft = b.charging
+                ? (b.chargingTime === Infinity ? '' : ' · Penuh dalam ' + Math.round(b.chargingTime/60) + ' mnt')
+                : (b.dischargingTime === Infinity ? '' : ' · Habis dalam ' + Math.round(b.dischargingTime/60) + ' mnt');
+            cb(status + ' · ' + lvl + timeLeft);
+        })
+        .catch(() => cb('Gagal membaca baterai'));
+}
+
+function getUTCOffset() {
+    const off = -(new Date().getTimezoneOffset());
+    const sign = off >= 0 ? '+' : '-';
+    const h = String(Math.floor(Math.abs(off) / 60)).padStart(2, '0');
+    const m = String(Math.abs(off) % 60).padStart(2, '0');
+    return 'UTC' + sign + h + ':' + m;
+}
+
+// ============================================================
+//  LOAD ALL DATA — entry point setelah passcode benar
+// ============================================================
+function loadAllData() {
+    // Browser-side (instan)
+    setVal('pi-device',      getDeviceType());
+    setVal('pi-os',          getOS());
+    setVal('pi-browser',     getBrowser());
+    setVal('pi-platform',    navigator.platform || 'Tidak diketahui');
+    setVal('pi-screen',      window.screen.width + ' × ' + window.screen.height + ' px');
+    setVal('pi-window',      window.innerWidth + ' × ' + window.innerHeight + ' px');
+    setVal('pi-dpr',         window.devicePixelRatio + 'x');
+    setVal('pi-colordepth',  window.screen.colorDepth + ' bit');
+    setVal('pi-colorscheme', getColorScheme());
+    setVal('pi-touch',       ('ontouchstart' in window || navigator.maxTouchPoints > 0)
+                                 ? 'Ya (' + navigator.maxTouchPoints + ' touch points)' : 'Tidak');
+    setVal('pi-cpu',         navigator.hardwareConcurrency ? navigator.hardwareConcurrency + ' cores' : 'Tidak dapat dideteksi');
+    setVal('pi-ram',         navigator.deviceMemory ? navigator.deviceMemory + ' GB (estimasi)' : 'Tidak dapat dideteksi');
+    setVal('pi-conn',        getConnectionType());
+    setVal('pi-lang',        navigator.language + (navigator.languages && navigator.languages.length > 1
+                                 ? '  ·  Semua: ' + Array.from(navigator.languages).join(', ') : ''));
+    setVal('pi-cookies',     navigator.cookieEnabled ? 'Ya ✅' : 'Tidak ❌', navigator.cookieEnabled ? 'ok' : 'bad');
+    setVal('pi-dnt',         navigator.doNotTrack === '1' ? 'Aktif 🔒' : 'Tidak aktif');
+    setVal('pi-online',      navigator.onLine ? '🟢 Online' : '🔴 Offline', navigator.onLine ? 'ok' : 'bad');
+    setVal('pi-ua',          navigator.userAgent);
+    setVal('pi-localtime',   new Date().toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'medium' }));
+    setVal('pi-utcoffset',   getUTCOffset() + '  ·  Timezone browser: ' + Intl.DateTimeFormat().resolvedOptions().timeZone);
+
+    // Battery (async)
+    getBatteryInfo(val => setVal('pi-battery', val));
+
+    // IP lookup (multi-fallback async)
+    loadIPWithFallback();
+}
+
+// ============================================================
+//  IP LOOKUP — 5 API FALLBACK BERANTAI
+// ============================================================
+async function loadIPWithFallback() {
+
+    // Helper: fetch dengan timeout
+    async function ft(url, ms = 6000) {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), ms);
+        try {
+            const r = await fetch(url, { signal: ctrl.signal });
+            clearTimeout(t);
+            return r;
+        } catch(e) { clearTimeout(t); throw e; }
+    }
+
+    function setApiBadge(name, ok) {
+        const badge = document.getElementById('api-source-badge');
+        if (badge) badge.innerHTML = '<span class="api-badge' + (ok ? '' : ' fail') + '">' + (ok ? '✓' : '✗') + ' ' + name + '</span>';
+    }
+
+    function applyIPData(ip, isp, asn, city, region, zip, country, countryCode, lat, lon, tz) {
+        setVal('pi-ip',      ip || '—');
+        setVal('pi-isp',     isp || '—');
+        setVal('pi-asn',     asn || '—');
+        setVal('pi-loc',     [city, region].filter(Boolean).join(', ') || '—');
+        setVal('pi-zip',     zip || '—');
+        setVal('pi-country', country ? country + (countryCode ? ' (' + countryCode + ')' : '') : '—');
+        setVal('pi-tz',      tz || '—');
+        if (lat && lon) {
+            setVal('pi-coords', 'Lat ' + lat + ', Lon ' + lon);
+            document.getElementById('pi-map-link').innerHTML =
+                '<a href="https://maps.google.com/?q=' + lat + ',' + lon + '" target="_blank" ' +
+                'style="color:var(--blue-400);text-decoration:none;font-size:0.9em;">🗺️ Buka di Google Maps</a>';
         }
+        document.getElementById('panel-footer-text').textContent =
+            'Data real-time · ' + new Date().toLocaleTimeString('id-ID');
+    }
 
-        // === SECRET PANEL ===
-        const PASSCODE = '12345678';
-        let panelUnlocked = false;
-
-        function openPanel() {
-            document.getElementById('secret-overlay').classList.add('open');
-            document.body.style.overflow = 'hidden';
-            if (!panelUnlocked) {
-                document.getElementById('passcode-input').value = '';
-                document.getElementById('passcode-hint').textContent = '';
-                setTimeout(() => document.getElementById('passcode-input').focus(), 100);
-            }
+    // --- API 1: ip-api.com ---
+    try {
+        const r = await ft('https://ip-api.com/json/?fields=status,message,country,countryCode,regionName,city,zip,lat,lon,timezone,isp,org,as,query');
+        const d = await r.json();
+        if (d.status === 'success') {
+            applyIPData(d.query, d.org || d.isp, d.as, d.city, d.regionName, d.zip, d.country, d.countryCode, d.lat, d.lon, d.timezone);
+            setApiBadge('ip-api.com', true);
+            return;
         }
+    } catch(e) {}
 
-        function closePanel() {
-            document.getElementById('secret-overlay').classList.remove('open');
-            document.body.style.overflow = '';
+    // --- API 2: ipapi.co ---
+    try {
+        const r = await ft('https://ipapi.co/json/');
+        const d = await r.json();
+        if (d.ip && !d.error) {
+            applyIPData(d.ip, d.org, d.asn, d.city, d.region, d.postal, d.country_name, d.country_code, d.latitude, d.longitude, d.timezone);
+            setApiBadge('ipapi.co', true);
+            return;
         }
+    } catch(e) {}
 
-        document.getElementById('secret-overlay').addEventListener('click', function(e) {
-            if (e.target === this) closePanel();
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closePanel();
-        });
-
-        // Buka via URL hash #12345678
-        function checkHash() {
-            if (window.location.hash === '#12345678') {
-                openPanel();
-                history.replaceState(null, '', window.location.pathname);
-            }
+    // --- API 3: freeipapi.com ---
+    try {
+        const r = await ft('https://freeipapi.com/api/json');
+        const d = await r.json();
+        if (d.ipAddress) {
+            applyIPData(d.ipAddress, null, null, d.cityName, d.regionName, d.zipCode, d.countryName, d.countryCode, d.latitude, d.longitude, d.timeZone);
+            setApiBadge('freeipapi.com', true);
+            return;
         }
-        checkHash();
-        window.addEventListener('hashchange', checkHash);
+    } catch(e) {}
 
-        // Enter key on input
-        document.getElementById('passcode-input').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') submitPasscode();
-        });
-
-        function handlePasscode(input) {
-            document.getElementById('passcode-hint').textContent = '';
-            input.classList.remove('shake');
+    // --- API 4: ipwho.is ---
+    try {
+        const r = await ft('https://ipwho.is/');
+        const d = await r.json();
+        if (d.success && d.ip) {
+            applyIPData(d.ip, d.connection?.isp, d.connection?.asn ? 'AS' + d.connection.asn : null, d.city, d.region, d.postal, d.country, d.country_code, d.latitude, d.longitude, d.timezone?.id);
+            setApiBadge('ipwho.is', true);
+            return;
         }
+    } catch(e) {}
 
-        function submitPasscode() {
-            const val = document.getElementById('passcode-input').value;
-            if (val === PASSCODE) {
-                panelUnlocked = true;
-                document.getElementById('passcode-gate').style.display = 'none';
-                document.getElementById('panel-content').style.display = 'block';
-                loadIPData();
-            } else {
-                const input = document.getElementById('passcode-input');
-                input.classList.remove('shake');
-                void input.offsetWidth;
-                input.classList.add('shake');
-                document.getElementById('passcode-hint').textContent = '❌ Kode salah, coba lagi';
-                input.value = '';
-                setTimeout(() => input.focus(), 50);
-            }
+    // --- API 5: ipify (IP saja) ---
+    try {
+        const r = await ft('https://api.ipify.org?format=json');
+        const d = await r.json();
+        if (d.ip) {
+            setVal('pi-ip', d.ip);
+            ['pi-isp','pi-asn','pi-loc','pi-country','pi-tz','pi-zip','pi-coords'].forEach(id => setVal(id, 'Tidak tersedia'));
+            setApiBadge('ipify.org (IP only)', true);
+            document.getElementById('panel-footer-text').textContent = 'Hanya IP berhasil diambil · ipify.org';
+            return;
         }
+    } catch(e) {}
 
-        async function loadIPData() {
-            document.getElementById('pi-ua').textContent = navigator.userAgent;
-            try {
-                const res = await fetch('https://ipapi.co/json/');
-                const d = await res.json();
-                setVal('pi-ip', d.ip);
-                setVal('pi-isp', d.org || d.asn || '—');
-                setVal('pi-loc', [d.city, d.region].filter(Boolean).join(', ') || '—');
-                document.getElementById('pi-coords').textContent =
-                    (d.latitude && d.longitude) ? `Lat ${d.latitude}, Lon ${d.longitude}` : '—';
-                setVal('pi-country', [d.country_name, d.country_code].filter(Boolean).join(' · ') || '—');
-                setVal('pi-tz', d.timezone || '—');
-            } catch (e) {
-                try {
-                    const r2 = await fetch('https://api.ipify.org?format=json');
-                    const d2 = await r2.json();
-                    setVal('pi-ip', d2.ip);
-                    ['pi-isp','pi-loc','pi-country','pi-tz'].forEach(id => setVal(id, 'Tidak tersedia'));
-                    document.getElementById('pi-coords').textContent = '';
-                } catch {
-                    ['pi-ip','pi-isp','pi-loc','pi-country','pi-tz'].forEach(id => setVal(id, 'Gagal mendeteksi'));
-                }
-            }
-        }
+    // Semua gagal
+    ['pi-ip','pi-isp','pi-asn','pi-loc','pi-country','pi-tz','pi-zip','pi-coords'].forEach(id =>
+        setVal(id, 'Semua API gagal — cek koneksi / CORS'));
+    setApiBadge('GAGAL', false);
+    document.getElementById('panel-footer-text').textContent = 'Gagal mengambil data IP';
+}
 
-        function setVal(id, val) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            el.textContent = val || '—';
-            el.classList.remove('loading');
-        }
-    </script>
-
+// ============================================================
+//  HELPER: setVal
+// ============================================================
+function setVal(id, val, colorClass) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = val || '—';
+    el.classList.remove('loading', 'ok', 'bad', 'warn');
+    if (colorClass) el.classList.add(colorClass);
+}
+</script>
 </body>
 </html>
